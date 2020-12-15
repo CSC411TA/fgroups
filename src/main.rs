@@ -20,13 +20,13 @@ fn main() -> io::Result<()> {
 	    		fgroups.insert((&fp).to_string(), vec![(&name).to_string()]);
 	    	}
 	    }
-	    let mut sep = "";
-	    for names in fgroups.values() {
-	    	if names.len() > 1 {
-	    		println!("{}{}", sep, names.join("\n"));
-	    	}
-	    	sep = "\n";
-	    }
     }
+    let mut sep = "";
+	for names in fgroups.values() {
+		if names.len() > 1 {
+			println!("{}{}", sep, names.join("\n"));
+		}
+		sep = "\n";
+	}
     Ok(())
 }

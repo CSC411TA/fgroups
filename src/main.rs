@@ -21,10 +21,10 @@ fn main() -> io::Result<()> {
             }
         }
     }
-    let fgroups: Vec<&Vec<String>> = fgroups.values().filter(|&names| names.len() > 1).collect();
     let mut sep = "";
-    for n in fgroups.iter() {
-        println!("{}{}", sep, n.join("\n"));
+    let fgroups: Vec<&Vec<String>> = fgroups.values().filter(|&names| names.len() > 1).collect();
+    for fgroup in fgroups.iter() {
+        println!("{}{}", sep, fgroup.join("\n"));
         sep = "\n";
     }
     Ok(())

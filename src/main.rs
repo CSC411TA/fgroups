@@ -4,7 +4,7 @@ use std::io;
 use std::io::BufRead;
 use std::str;
 
-fn main() -> io::Result<()> {
+fn main() {
     let mut fgroups: HashMap<String, Vec<String>> = HashMap::new();
     for line in io::stdin().lock().lines() {
         let pattern = Regex::new(r"\s+").unwrap();
@@ -21,11 +21,12 @@ fn main() -> io::Result<()> {
             }
         }
     }
-    let mut sep = "";
+    let mut sep: String = "".to_string();
     let fgroups: Vec<&Vec<String>> = fgroups.values().filter(|&names| names.len() > 1).collect();
-    for fgroup in fgroups.iter() {
-        println!("{}{}", sep, fgroup.join("\n"));
-        sep = "\n";
-    }
-    Ok(())
+    fgroups.iter().for_each(|fg| print_group(& mut sep, fg));
+}
+
+fn print_group(sep: & mut String, fgroup: &[String]) {
+	println!("{}{}", sep, fgroup.join("\n"));
+    *sep = "\n".to_string();
 }

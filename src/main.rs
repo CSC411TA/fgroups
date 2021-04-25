@@ -1,4 +1,4 @@
-use regex::Regex;
+
 use std::collections::HashMap;
 use std::io;
 use std::io::BufRead;
@@ -7,11 +7,10 @@ use std::str;
 fn main() {
     let mut fgroups: HashMap<String, Vec<String>> = HashMap::new();
     for line in io::stdin().lock().lines() {
-        let pattern = Regex::new(r"\s+").unwrap();
         let l = line.unwrap();
-        let parts: Vec<&str> = pattern.splitn(&l, 2).collect();
+        let parts: Vec<&str> = l.splitn(2, |c| c == ' ' || c == '\t').collect();
         let fp = parts[0].to_string();
-        let name = parts[1].to_string();
+        let name = parts[1].trim_start_matches(|c: char| c == ' ' || c == '\t');
         match fgroups.get_mut(&fp) {
             Some(names) => {
                 names.push((&name).to_string());

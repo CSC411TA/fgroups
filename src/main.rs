@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::io;
-use std::io::BufRead;
 use std::str;
 
 fn main() -> Result<(), io::Error> {
@@ -9,7 +8,7 @@ fn main() -> Result<(), io::Error> {
     let mut fgroups: HashMap<String, Vec<String>> = HashMap::new();
     // Keep track of line number for nicer errors
     let mut linenum = 1;
-    for line in io::stdin().lock().lines() {
+    for line in io::stdin().lines() {
         let l = line?;
         // Break each line, on first whitespace, into a
         // fingerprint and a name

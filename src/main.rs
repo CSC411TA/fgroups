@@ -3,14 +3,14 @@ use std::io;
 use std::io::BufRead;
 use std::str;
 
-fn main() {
+fn main() -> Result<(), io::Error> {
     // We will use a `HashMap` to map from fingerprints
     // to collections (`Vec`s) of names
     let mut fgroups: HashMap<String, Vec<String>> = HashMap::new();
     // Keep track of line number for nicer errors
     let mut linenum = 1;
     for line in io::stdin().lock().lines() {
-        let l = line.unwrap();
+        let l = line?;
         // Break each line, on first whitespace, into a
         // fingerprint and a name
         let parts: Vec<&str> = l.splitn(2, ws).collect();
@@ -53,6 +53,7 @@ fn main() {
         .values()
         .filter(|&names| names.len() > 1)
         .for_each(|fg| print_group(fg, &mut sep));
+    Ok(())
 }
 
 fn ws(c: char) -> bool {
